@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murakkab Kalkulyator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Asosiy Kalkulyator -->
+        <div class="calculator">
+            <div class="calculator-header">
+                <h1>🧮 Murakkab Kalkulyator</h1>
+                <div class="memory-indicator" id="memoryIndicator">M: 0</div>
+            </div>
+            
+            <!-- Displey -->
+            <div class="display-container">
+                <div class="display-history" id="displayHistory"></div>
+                <input type="text" class="display" id="display" value="0" readonly>
+            </div>
+            
+            <!-- Tugmalar -->
+            <div class="buttons-grid">
+                <!-- Qator 1: Xotira va Maxsus -->
+                <button class="btn btn-memory" onclick="memoryRecall()">MR</button>
+                <button class="btn btn-memory" onclick="memoryClear()">MC</button>
+                <button class="btn btn-memory" onclick="memoryAdd()">M+</button>
+                <button class="btn btn-memory" onclick="memorySubtract()">M-</button>
+                
+                <!-- Qator 2: Trigonometriya -->
+                <button class="btn btn-function" onclick="applyFunction('sin')">sin</button>
+                <button class="btn btn-function" onclick="applyFunction('cos')">cos</button>
+                <button class="btn btn-function" onclick="applyFunction('tan')">tan</button>
+                <button class="btn btn-function" onclick="applyFunction('log')">log</button>
+                
+                <!-- Qator 3: Darajalar -->
+                <button class="btn btn-function" onclick="applyFunction('square')">x²</button>
+                <button class="btn btn-function" onclick="applyFunction('cube')">x³</button>
+                <button class="btn btn-function" onclick="appendToDisplay('^')">xʸ</button>
+                <button class="btn btn-function" onclick="applyFunction('sqrt')">√</button>
+                
+                <!-- Qator 4: Maxsus funksiyalar -->
+                <button class="btn btn-function" onclick="applyFunction('cbrt')">∛</button>
+                <button class="btn btn-function" onclick="applyFunction('ln')">ln</button>
+                <button class="btn btn-function" onclick="applyFunction('factorial')">n!</button>
+                <button class="btn btn-function" onclick="applyFunction('inverse')">1/x</button>
+                
+                <!-- Qator 5: Raqamlar va operatorlar -->
+                <button class="btn btn-operator" onclick="clearDisplay()">C</button>
+                <button class="btn btn-operator" onclick="backspace()">⌫</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('%')">%</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('/')">/</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('7')">7</button>
+                <button class="btn btn-number" onclick="appendToDisplay('8')">8</button>
+                <button class="btn btn-number" onclick="appendToDisplay('9')">9</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('*')">×</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('4')">4</button>
+                <button class="btn btn-number" onclick="appendToDisplay('5')">5</button>
+                <button class="btn btn-number" onclick="appendToDisplay('6')">6</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('-')">-</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('1')">1</button>
+                <button class="btn btn-number" onclick="appendToDisplay('2')">2</button>
+                <button class="btn btn-number" onclick="appendToDisplay('3')">3</button>
+                <button class="btn btn-operator" onclick="appendToDisplay('+')">+</button>
+                
+                <button class="btn btn-number" onclick="appendToDisplay('0')">0</button>
+                <button class="btn btn-number" onclick="appendToDisplay('.')">.</button>
+                <button class="btn btn-constant" onclick="appendToDisplay('π')">π</button>
+                <button class="btn btn-equals" onclick="calculate()">=</button>
+            </div>
+            
+            <!-- Qo'shimcha tugmalar -->
+            <div class="extra-buttons">
+                <button class="btn btn-secondary" onclick="appendToDisplay('(')">(</button>
+                <button class="btn btn-secondary" onclick="appendToDisplay(')')">)</button>
+                <button class="btn btn-secondary" onclick="appendToDisplay('e')">e</button>
+                <button class="btn btn-secondary" onclick="toggleHistory()">📜 Tarix</button>
+            </div>
+        </div>
+        
+        <!-- Tarix Paneli -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h2>📜 Hisoblashlar Tarixi</h2>
+                <button class="btn btn-small" onclick="clearHistory()">Tozalash</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <p class="history-empty">Hozircha tarix bo'sh</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
